@@ -24,6 +24,6 @@ const parkSchema = new Schema({
 
 //model
 
-const Parks = model('Park', parkSchema)
+const Park = model('Park', parkSchema)
 
 module.exports = Park;
