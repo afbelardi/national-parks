@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import NationalPark from '../components/NationalPark';
 
 export default function App(props) {
 	const [query, updateQuery] = useState({
@@ -10,7 +11,7 @@ export default function App(props) {
 		searchURL: ''
 	});
 
-	const [park, setPark] = useState({});
+	const [park, setPark] = useState([]);
 
 	useEffect(() => {
 		(async () => {
@@ -18,7 +19,7 @@ export default function App(props) {
 				try {
 					const response = await fetch(query.searchURL);
 					const data = await response.json();
-					await setPark(data);
+					await setPark(data.data);
 				} catch (error) {
 					console.error(error);
 				} finally {
@@ -48,13 +49,29 @@ export default function App(props) {
 		event.preventDefault();
 		updateQuery({
 			...query,
-			searchURL: query.baseURL + query.option + query.stateCode + query.state + query.apiKey 
+			searchURL:
+				query.baseURL +
+				query.option +
+				query.stateCode +
+				query.state +
+				query.apiKey
 		});
 	};
 
 	return (
 		<div className="AppPage">
 			<h1>National Parks Guide</h1>
+			<form onSubmit={handleSubmit}>
+				<label htmlFor="state"> State</label>
+				<input
+					id="state"
+					type="text"
+					value={query.state}
+					onChange={handleChange}
+				/>
+				<input type="submit" value="Find National Parks" />
+			</form>
+			{Object.keys(park).length ? <NationalPark data={park} /> : ''}
 		</div>
 	);
 }
