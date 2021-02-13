@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './pages/App';
+import AppRouter from './router';
 import 'bootstrap/scss/bootstrap.scss';
 
 const app = document.getElementById('app');
 
-ReactDOM.render(<App />, app);
+ReactDOM.render(<AppRouter />, app);

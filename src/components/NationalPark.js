@@ -1,14 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function NationalPark(props) {
 	return (
 		<div className={'column'} style={{ overflow: 'scroll' }}>
 			{Object.keys(props.data).length
-				? props.data.map((park, index) => {
+				? props.data.map(park => {
 						return (
-							<div key={park.fullName}>
-								<h1>{park.fullName}</h1>
-								<h2>Description: {park.description}</h2>
+							<div className="parks-container">
+								<div key={park.fullName} className="park-preview">
+									<Link to={`/park/${park.id}`}>
+										<h1 id="park-name">{park.fullName}</h1>
+									</Link>
+									<h2>Description:</h2>
+									<p>{park.description}</p>
+									<img src={park.images[0].url}></img>
+								</div>
 							</div>
 						);
 				  })

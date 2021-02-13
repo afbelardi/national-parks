@@ -5,6 +5,8 @@ const PORT = process.env.PORT || 8000;
 const mongoose = require('mongoose');
 const path = require('path');
 
+
+
 const MONGODB_URI = process.env.MONGODB_URI
 const API_KEY = process.env.REACT_APP_PARKS_API_KEY
 const db = mongoose.connection;
@@ -23,14 +25,10 @@ app.use(express.json());
 if (process.env.NODE_ENV !== 'development'){
   app.use(express.static('public'))
 }
+app.use(/\.[0-9a-z]+$/i, express.static('public'));
 
 /* Controller Goes Here Remove the tes*/
-app.get('/test', (req, res)=>{
-	res.status(200).json({
-		website: 'My Website',
-		info: 'Not that much'
-	})
-})
+app.use('/api/nationalpark', require('./controllers/parks.js'));
 /* Controller Ends here */
 //LISTENER
 
@@ -51,16 +49,13 @@ const http = require('http'); // The node http module allow you to create server
 const fs = require('fs'); // The node file system module allows you to create files and interact with file system
 const path = require('path'); // path allows you to get the path of a folder etc.
 const PORT = process.env.PORT || 8080;
-
 const public = __dirname + '/public'
-
 http.createServer(function (req, res) {
 	let filePath = public + req.url;
 	if (filePath == public + '/') {
 	  filePath = public + '/index.html';
 	}
   filePath = filePath.split('?')[0]
-
 	let extName = String(path.extname(filePath)).toLowerCase();
 	const mimeTypes = {
 	'.html': 'text/html',
@@ -79,7 +74,6 @@ http.createServer(function (req, res) {
         '.otf': 'application/font-otf',
         '.wasm': 'application/wasm'
 	};
-
 	let contentType = mimeTypes[extName] || 'application/octet-stream';
 	fs.readFile(filePath, function(error, content) {
 	if (error) {
@@ -100,7 +94,6 @@ http.createServer(function (req, res) {
 	  }
 	});
 }).listen(PORT);
-
 console.log(`Server started! Listening on port: ${PORT}`);
 // basic node server without express serving
 */

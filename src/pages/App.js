@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import NationalPark from '../components/NationalPark';
+import Header from '../components/Header';
+import Show from '../pages/Show';
+import Favorites from '../pages/Favorites';
+// import NavBar from '../components/NavBar';
+import { Link } from 'react-router-dom';
 
 export default function App(props) {
 	const [query, updateQuery] = useState({
@@ -28,7 +33,7 @@ export default function App(props) {
 						option: 'parks?',
 						stateCode: 'stateCode=',
 						state: '',
-						apiKey: 'api_key=' + 'd9f8hSWGmSo610C7sPRvMbrlarUrSUmThuAW5r8j',
+						apiKey: '&api_key=' + 'd9f8hSWGmSo610C7sPRvMbrlarUrSUmThuAW5r8j',
 						searchURL: ''
 					});
 				}
@@ -59,8 +64,8 @@ export default function App(props) {
 	};
 
 	return (
-		<div className="AppPage">
-			<h1>National Parks Guide</h1>
+		<div className="AppPage" id="parallax">
+			<Header />
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="state"> State</label>
 				<input
