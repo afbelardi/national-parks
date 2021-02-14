@@ -9,7 +9,7 @@ export default function NationalPark(props) {
 						return (
 							<div className="parks-container">
 								<div key={park.fullName} className="park-preview">
-									<Link to={`/park/${park.id}`}>
+									<Link to={`/park/${park.parkCode}`}>
 										<h1 id="park-name">{park.fullName}</h1>
 									</Link>
 									<h2>Description:</h2>

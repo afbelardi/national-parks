@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import NationalPark from '../components/NationalPark';
 import Header from '../components/Header';
-import Show from '../pages/Show';
-import Favorites from '../pages/Favorites';
 // import NavBar from '../components/NavBar';
 import { Link } from 'react-router-dom';
+import AppRouter from '../router/index';
 
 export default function App(props) {
 	const [query, updateQuery] = useState({
@@ -25,6 +24,7 @@ export default function App(props) {
 					const response = await fetch(query.searchURL);
 					const data = await response.json();
 					await setPark(data.data);
+					console.log(park);
 				} catch (error) {
 					console.error(error);
 				} finally {
@@ -79,4 +79,5 @@ export default function App(props) {
 			{Object.keys(park).length ? <NationalPark data={park} /> : ''}
 		</div>
 	);
+	// return <AppRouter />;
 }

@@ -47,6 +47,7 @@ parkRouter.get('/', async (req, res) => {
 /*Show */
 
 parkRouter.get('/:id', async (req, res) => {
+    debugger
     try {
         const foundPark = await Park.findById(req.params.id)
         await foundPark
