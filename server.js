@@ -33,13 +33,14 @@ app.use(/\.[0-9a-z]+$/i, express.static('public'));
 /* Controller Ends here */
 //LISTENER
 
+app.use('/api/nationalpark', require('./controllers/parks.js'));
 
 // for react router
 app.get('*', (req, res) => {
 	return res.sendFile(path.resolve(path.join(__dirname, 'public', 'index.html')))
 })
 
-app.use('/api/nationalpark', require('./controllers/parks.js'));
+
 
 app.listen(PORT, () => {
     console.log(`API Listening on port ${PORT}`);

@@ -20,10 +20,6 @@ export default function NationalPark(props) {
 						);
 				  })
 				: ''}
-
-			{/* <div>
-				<img src={props.movie.Poster} />
-			</div> */}
 		</div>
 	);
 }

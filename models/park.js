@@ -1,13 +1,13 @@
 const { Schema, model } = require('mongoose');
 
 const parkSchema = new Schema({
-    name: String,
+    fullName: String,
+    description: String,
     activities: [{
         id: String,
         name: String
     }],
-    address: String,
-    designation: String,
+    addresses: String,
     directionsInfo: String,
     entranceFees: [{
         cost: String,
@@ -17,9 +17,9 @@ const parkSchema = new Schema({
         url: String,
         title: String
     }],
-    states: String,
     url: String,
-    weatherInfo: String
+    weatherInfo: String,
+    rating: Number
 })
 
 //model

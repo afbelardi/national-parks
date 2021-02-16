@@ -24,7 +24,6 @@ export default function App(props) {
 					const response = await fetch(query.searchURL);
 					const data = await response.json();
 					await setPark(data.data);
-					console.log(park);
 				} catch (error) {
 					console.error(error);
 				} finally {
