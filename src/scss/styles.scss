@@ -148,8 +148,36 @@ a {
   height: 100%;
   width: auto;
  }
- 
 
+ .fees-activities {
+  display: flex;
+  justify-content: space-around;
+ }
+
+ .entrance-fees {
+  max-width: 30vw;
+  border: 2px solid black;
+  margin-right: 5px;
+ }
+
+ .activities {
+  max-width: 30vw;
+  border: 2px solid black;
+ }
+ 
+ .favorite-container {
+   display: flex;
+   justify-content: center;
+   height: 100vh;
+   width: 100vw;
+ }
+
+ .favorite-post {
+   max-width: 30vw;
+   display: flex;
+   justify-content: center;
+   margin-top: 20px;
+ }
 
 // .NavBar {
 //   display: flex;

@@ -6,6 +6,8 @@ export default function Show(props) {
 
 	const [image, setImage] = useState([]);
 	const [favorites, setFavorites] = useState([]);
+	const [entranceFees, setEntranceFees] = useState([]);
+	const [activities, setActivities] = useState([]);
 
 	useEffect(() => {
 		(async () => {
@@ -17,6 +19,8 @@ export default function Show(props) {
 				const data = await response.json();
 				setPark(data.data[0]);
 				setImage(data.data[0].images);
+				setEntranceFees(data.data[0].entranceFees);
+				setActivities(data.data[0].activities);
 			} catch (err) {
 				console.error(err);
 			}
@@ -40,6 +44,8 @@ export default function Show(props) {
 			setFavorites([...favorites, data]);
 		} catch (error) {
 			console.error(error);
+		} finally {
+			window.location.assign('/favorites');
 		}
 	};
 
@@ -77,6 +83,24 @@ export default function Show(props) {
 						<h4 style={{ textAlign: 'center' }}>Weather Info:</h4>
 						<p style={{ textAlign: 'center' }}>{park.weatherInfo}</p>
 					</main>
+				</div>
+				<div className="fees-activities">
+					<main className="entrance-fees">
+						{entranceFees.map(fee => {
+							return (
+								<section>
+									<p style={{ textAlign: 'center' }}>${fee.cost}</p>
+									<p style={{ textAlign: 'center' }}>{fee.description}</p>
+								</section>
+							);
+						})}
+					</main>
+					<div className="activities">
+						<h4 style={{ textAlign: 'center' }}>Activities</h4>
+						{activities.map(activity => {
+							return <p style={{ textAlign: 'center' }}>{activity.name}</p>;
+						})}
+					</div>
 				</div>
 
 				<hr></hr>
