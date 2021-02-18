@@ -34,6 +34,7 @@ app.use(/\.[0-9a-z]+$/i, express.static('public'));
 //LISTENER
 
 app.use('/api/nationalpark', require('./controllers/parks.js'));
+app.use('/api/notes', require('./controllers/notes'))
 
 // for react router
 app.get('*', (req, res) => {

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Favorites(props) {
 	const [favorites, setFavorites] = useState([]);
+
 	useEffect(() => {
 		(async () => {
 			try {
@@ -15,22 +17,24 @@ export default function Favorites(props) {
 	}, []);
 
 	return (
-		<div className="favorite-container">
+		<div className="FavoritesPage">
 			<h1 style={{ textAlign: 'center' }}>Favorites</h1>
-			{favorites.map(favorite => {
-				return (
-					<div className="favorite-post">
-						<div className="parks-container">
-							<div key={favorite.fullName} className="park-preview">
-								<h1 id="park-name">{favorites.fullName}</h1>
-								<h2>Description:</h2>
-								<p>{favorite.description}</p>
-								{/* <img src={favorites.images[0].url}></img> */}
-							</div>
+			<div className="favorite-post">
+				{favorites.map(favorite => {
+					return (
+						<div className="favorite-parks-container">
+							<Link to={`/${favorite._id}`}>
+								<h1 id="park-name" style={{ textAlign: 'center' }}>
+									{favorite.fullName}
+								</h1>
+							</Link>
+							<h2 style={{ textAlign: 'center' }}>Description:</h2>
+							<p>{favorite.description}</p>
+							<img src={favorite.images[0].url}></img>
 						</div>
-					</div>
-				);
-			})}
+					);
+				})}
+			</div>
 		</div>
 	);
 }

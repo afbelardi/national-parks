@@ -3,7 +3,6 @@ import NationalPark from '../components/NationalPark';
 import Header from '../components/Header';
 // import NavBar from '../components/NavBar';
 import { Link } from 'react-router-dom';
-import AppRouter from '../router/index';
 
 export default function App(props) {
 	const [query, updateQuery] = useState({
@@ -65,6 +64,9 @@ export default function App(props) {
 	return (
 		<div className="AppPage" id="parallax">
 			<Header />
+			<Link to={'/favorites'}>
+				<h3 style={{ justifyContent: 'center' }}>Favorites</h3>
+			</Link>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="state"> State</label>
 				<input

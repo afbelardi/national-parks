@@ -1,26 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Show(props) {
-	const [park, setPark] = useState({});
-
+export default function UpdateFavorite(props) {
+	const [favoritePark, setFavoritePark] = useState({});
 	const [image, setImage] = useState([]);
-	const [favorites, setFavorites] = useState([]);
 	const [entranceFees, setEntranceFees] = useState([]);
-	const [activities, setActivities] = useState([]);
+	const [didDelete, setDidDelete] = useState(false);
+	const [notes, setNotes] = useState({
+		note: ''
+	});
 
+	const noteInput = useRef(null);
+	// const [activities, setActivities] = useState([]);
 	useEffect(() => {
 		(async () => {
 			try {
 				const response = await fetch(
-					`https://developer.nps.gov/api/v1/parks?parkCode=${props.match.params.id}&api_key=d9f8hSWGmSo610C7sPRvMbrlarUrSUmThuAW5r8j`
+					`api/nationalpark/${props.match.params.id}`
 				);
-
 				const data = await response.json();
-				setPark(data.data[0]);
-				setImage(data.data[0].images);
-				setEntranceFees(data.data[0].entranceFees);
-				setActivities(data.data[0].activities);
+				setFavoritePark(data);
+				setImage(data.images);
+				setEntranceFees(data.entranceFees);
+				// setActivities(data.activities);
 			} catch (err) {
 				console.error(err);
 			}
@@ -30,45 +32,57 @@ export default function Show(props) {
 	const handleSubmit = async event => {
 		event.preventDefault();
 		try {
-			const response = await fetch('/api/nationalpark/favorites', {
-				method: 'POST',
+			const response = await fetch(`/api/notes/${props.match.params.id}`, {
+				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					fullName: park.fullName,
-					description: park.description,
-					images: park.images,
-					entranceFees: park.entranceFees,
-					weatherInfo: park.weatherInfo,
-					directionsInfo: park.directionsInfo,
-					activities: park.activities,
-					url: park.url
+					note: noteInput.current.value
 				})
 			});
 			const data = await response.json();
-			setFavorites([...favorites, data]);
+			// setFavoritePark(data);
+			setNotes(data);
 		} catch (error) {
 			console.error(error);
+		}
+	};
+
+	const handleDelete = async event => {
+		try {
+			const response = await fetch(
+				`/api/nationalpark/${props.match.params.id}`,
+				{
+					method: 'DELETE',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}
+			);
+			const data = response.json();
+			setDidDelete(!didDelete);
+		} catch (error) {
+			console.log(error);
 		} finally {
-			window.location.assign('/favorites');
+			window.location.assign('/');
 		}
 	};
 
 	return (
 		<div className="parks-container">
-			<div key={park.fullName} className="park-info">
+			<div key={favoritePark.fullName} className="park-info">
 				<Link to={`/`}>
 					<h3 style={{ textAlign: 'center' }} id="park-name">
 						Home
 					</h3>
 				</Link>
-				<h1>{park.fullName}</h1>
-				<button onClick={handleSubmit}>Add to Favorites</button>
+				<h1>{favoritePark.fullName}</h1>
+				<button onClick={handleDelete}>Delete From Favorites</button>
 				<h2 style={{ textAlign: 'center', marginTop: '20px' }}>Description:</h2>
 				<div className="description">
 					<p style={{ width: '50%', textAlign: 'center' }} id="description">
-						{park.description}
+						{favoritePark.description}
 					</p>
 				</div>
 				<hr />
@@ -82,12 +96,12 @@ export default function Show(props) {
 					<main className="directions">
 						<h4 style={{ textAlign: 'center' }}>Directions:</h4>
 						<p id="direction-p" style={{ textAlign: 'center' }}>
-							{park.directionsInfo}
+							{favoritePark.directionsInfo}
 						</p>
 					</main>
 					<main className="weather">
 						<h4 style={{ textAlign: 'center' }}>Weather Info:</h4>
-						<p style={{ textAlign: 'center' }}>{park.weatherInfo}</p>
+						<p style={{ textAlign: 'center' }}>{favoritePark.weatherInfo}</p>
 					</main>
 				</div>
 				<div className="fees-activities">
@@ -101,17 +115,33 @@ export default function Show(props) {
 							);
 						})}
 					</main>
-					<div className="activities">
-						<h4 style={{ textAlign: 'center' }}>Activities</h4>
-						{activities.map(activity => {
+					{/* <div className="activities">
+						<h4 style={{ textAlign: 'center' }}>Activities</h4> */}
+					{/* {activities.map(activity => {
 							return <p style={{ textAlign: 'center' }}>{activity.name}</p>;
-						})}
-					</div>
+						})} */}
+					{/* </div> */}
 				</div>
+				<p>{favoritePark.notes}</p>
 
 				<hr></hr>
+
+				<form
+					style={{ display: 'flex', flexDirection: 'column' }}
+					onSubmit={handleSubmit}
+				>
+					<label>
+						Note:
+						<input
+							type="text"
+							ref={noteInput}
+							defaultValue={favoritePark.notes}
+						/>
+					</label>
+				</form>
+				<input type="submit" value="Update Notes" />
 				<footer>
-					<a style={{ textAlign: 'center' }} href={park.url}>
+					<a style={{ textAlign: 'center' }} href={favoritePark.url}>
 						Park's website
 					</a>
 				</footer>

@@ -19,7 +19,7 @@ const parkSchema = new Schema({
     }],
     url: String,
     weatherInfo: String,
-    rating: Number
+    notes: [{ type: Schema.Types.ObjectId, ref:'Note'}]
 })
 
 //model
