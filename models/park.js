@@ -1,12 +1,10 @@
 const { Schema, model } = require('mongoose');
 
+
+
 const parkSchema = new Schema({
     fullName: String,
     description: String,
-    activities: [{
-        id: String,
-        name: String
-    }],
     addresses: String,
     directionsInfo: String,
     entranceFees: [{
@@ -19,7 +17,7 @@ const parkSchema = new Schema({
     }],
     url: String,
     weatherInfo: String,
-    notes: [{ type: Schema.Types.ObjectId, ref:'Note'}]
+    note: [{ type: Schema.Types.ObjectId, ref:'Note'}]
 })
 
 //model
@@ -27,3 +25,4 @@ const parkSchema = new Schema({
 const Park = model('Park', parkSchema)
 
 module.exports = Park;
+

@@ -4,7 +4,6 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const mongoose = require('mongoose');
 const path = require('path');
-const routes = require('./controllers/parks')
 
 
 
@@ -33,7 +32,7 @@ app.use(/\.[0-9a-z]+$/i, express.static('public'));
 /* Controller Ends here */
 //LISTENER
 
-app.use('/api/nationalpark', require('./controllers/parks.js'));
+app.use('/api/nationalpark', require('./controllers/parks'));
 app.use('/api/notes', require('./controllers/notes'))
 
 // for react router

@@ -1,5 +1,5 @@
 const Note = require('../models/Note');
-// const Park = require('../models/Park');
+const Park = require('../models/Park');
 const express = require('express');
 const noteRouter = express.Router();
 
@@ -18,8 +18,10 @@ noteRouter.post('/', async (req, res) =>  {
             note
         });
         const foundPark = await Park.findById(parkID)
-        const parkNotes = foundPark.notes
-        const updatedPark = await Park.findByIdAndUpdate(parkID, {notes: [...parkNotes, newNote._id]})
+        console.log(foundPark)
+        const parkNote = foundPark.note
+        console.log(parkNote)
+        const updatedPark = await Park.findByIdAndUpdate(parkID, {note: [...parkNote, newNote._id]})
         res
         .status(200)
         .json(newNote)

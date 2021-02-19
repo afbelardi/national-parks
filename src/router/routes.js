@@ -2,7 +2,6 @@ import App from '../pages/App';
 import Show from '../pages/Show';
 import Favorites from '../pages/Favorites';
 import ShowFavorite from '../pages/ShowFavorite';
-import UpdateFavorite from '../pages/UpdateFavorite';
 
 const routes = [
 	{
@@ -15,12 +14,6 @@ const routes = [
 		key: 'Show',
 		path: '/park/:id'
 	},
-	{
-		Component: UpdateFavorite,
-		key: 'UpdateFavorite',
-		path: '/:id/edit'
-	},
-
 	{
 		Component: ShowFavorite,
 		key: 'ShowFavorite',

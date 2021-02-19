@@ -7,15 +7,20 @@ export default function ShowFavorite(props) {
 	const [entranceFees, setEntranceFees] = useState([]);
 	const [didDelete, setDidDelete] = useState(false);
 
+	const [notes, setNotes] = useState([]);
+
+	const noteInput = useRef(null);
+
 	// const [activities, setActivities] = useState([]);
 	useEffect(() => {
 		(async () => {
 			try {
 				const response = await fetch(
-					`api/nationalpark/${props.match.params.id}`
+					`/api/nationalpark/${props.match.params.id}`
 				);
 				const data = await response.json();
 				setFavoritePark(data);
+				setNotes(data.note);
 				setImage(data.images);
 				setEntranceFees(data.entranceFees);
 				// setActivities(data.activities);
@@ -24,6 +29,26 @@ export default function ShowFavorite(props) {
 			}
 		})();
 	}, [didDelete]);
+
+	const handleSubmit = async event => {
+		event.preventDefault();
+		try {
+			const response = await fetch('/api/notes', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					note: noteInput.current.value,
+					parkID: props.match.params.id
+				})
+			});
+			const data = await response.json();
+			setNotes([...notes, data]);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	const handleDelete = async event => {
 		try {
@@ -55,9 +80,7 @@ export default function ShowFavorite(props) {
 				</Link>
 				<h1>{favoritePark.fullName}</h1>
 				<button onClick={handleDelete}>Delete From Favorites</button>
-				<Link to={`/${favoritePark._id}/edit`}>
-					<h3>Update Favorites</h3>
-				</Link>
+
 				<h2 style={{ textAlign: 'center', marginTop: '20px' }}>Description:</h2>
 				<div className="description">
 					<p style={{ width: '50%', textAlign: 'center' }} id="description">
@@ -103,6 +126,26 @@ export default function ShowFavorite(props) {
 				</div>
 
 				<hr></hr>
+				<ul>
+					{notes.map(note => {
+						return <li>{note.note}</li>;
+					})}
+				</ul>
+
+				<form
+					style={{ display: 'flex', flexDirection: 'column' }}
+					onSubmit={handleSubmit}
+				>
+					<label>
+						Note:
+						<input
+							type="text"
+							ref={noteInput}
+							defaultValue={favoritePark.notes}
+						/>
+					</label>
+					<input type="submit" value="Update Notes" />
+				</form>
 
 				<footer>
 					<a style={{ textAlign: 'center' }} href={favoritePark.url}>

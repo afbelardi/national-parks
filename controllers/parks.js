@@ -1,4 +1,4 @@
-const Park = require('../models/park');
+const Park = require('../models/Park');
 const express = require('express');
 const parkRouter = express.Router();
 
@@ -50,7 +50,7 @@ parkRouter.get('/:id', async (req, res) => {
     debugger
     try {
         const foundPark = await Park.findById(req.params.id)
-        await foundPark
+        await foundPark.execPopulate('note')
         res
             .status(200)
             .json(foundPark)
