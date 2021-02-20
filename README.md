@@ -1,4 +1,4 @@
-# App Title: 
+# App Title: National Parks Guide
 
 ### App Demo: 
 
