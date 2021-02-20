@@ -89,6 +89,9 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 5px solid black;
+    border-radius: 15px;
+    box-shadow: 15px 15px 15px 0px black;
     img {
       width: 75%;
       justify-content: center;
@@ -111,6 +114,7 @@ a {
 .parks-container {
   display: flex;
  justify-content: center;
+ 
 }
 
 .app-description {
@@ -184,6 +188,10 @@ background-color: #7c904c;
 position: absolute;
 width: 100vw;
 height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
 
 
 
@@ -191,15 +199,27 @@ height: 100vh;
 
 .favorite-post {
   display: flex;
-  justify-content: space-between;
-  width: auto;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+  
 
  }
 
 .favorite-parks-container {
   display: flex;
   flex-direction: column;
-  max-width: 30vw;
+  width: 30vw;
+  height: 80vh;
+  margin-right: 90px;
+  margin-bottom: 40px;
+  border: 5px solid black;
+    border-radius: 15px;
+    box-shadow: 15px 15px 15px 0px black;
+  
  }
 
  .update-note {
