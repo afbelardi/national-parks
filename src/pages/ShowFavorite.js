@@ -70,6 +70,21 @@ export default function ShowFavorite(props) {
 		}
 	};
 
+	const noteDelete = async id => {
+		try {
+			const response = await fetch(`/api/notes/${id}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			const data = await response.json();
+			setDidDelete(!didDelete);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<div className="parks-container">
 			<div key={favoritePark.fullName} className="park-info">
@@ -128,7 +143,19 @@ export default function ShowFavorite(props) {
 				<hr></hr>
 				<ul>
 					{notes.map(note => {
-						return <li>{note.note}</li>;
+						return (
+							<div>
+								<Link to={`/note/${note._id}`}>
+									<li>{note.note}</li>
+								</Link>
+								<input
+									type="submit"
+									method="DELETE"
+									onClick={() => noteDelete(note._id)}
+									value="Delete"
+								/>
+							</div>
+						);
 					})}
 				</ul>
 
@@ -138,11 +165,7 @@ export default function ShowFavorite(props) {
 				>
 					<label>
 						Note:
-						<input
-							type="text"
-							ref={noteInput}
-							defaultValue={favoritePark.notes}
-						/>
+						<input type="text" ref={noteInput} defaultValue="" />
 					</label>
 					<input type="submit" value="Update Notes" />
 				</form>

@@ -13,7 +13,7 @@ export default function NationalPark(props) {
 										<h1 id="park-name">{park.fullName}</h1>
 									</Link>
 									<h2>Description:</h2>
-									<p>{park.description}</p>
+									<p className="app-description">{park.description}</p>
 									<img src={park.images[0].url}></img>
 								</div>
 							</div>

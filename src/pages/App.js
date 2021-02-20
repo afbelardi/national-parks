@@ -65,10 +65,10 @@ export default function App(props) {
 		<div className="AppPage" id="parallax">
 			<Header />
 			<Link to={'/favorites'}>
-				<h3 style={{ justifyContent: 'center' }}>Favorites</h3>
+				<h3 style={{ textAlign: 'center' }}>Favorites</h3>
 			</Link>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="state"> State</label>
+				<label htmlFor="state"> State Abbreviation(CA, TX, UT)</label>
 				<input
 					id="state"
 					type="text"
