@@ -38,7 +38,7 @@ export default function UpdateNote(props) {
 
 	return (
 		<div className="update-note" style={{ backgroundColor: '#7c904c' }}>
-			<p>{note.note}</p>
+			<h1>{note.note}</h1>
 			<form
 				style={{ display: 'flex', flexDirection: 'column' }}
 				onSubmit={handleSubmit}
