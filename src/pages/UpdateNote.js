@@ -38,16 +38,24 @@ export default function UpdateNote(props) {
 
 	return (
 		<div className="update-note" style={{ backgroundColor: '#7c904c' }}>
-			<h1>{note.note}</h1>
+			<h1 style={{ textAlign: 'center' }}>{note.note}</h1>
 			<form
-				style={{ display: 'flex', flexDirection: 'column' }}
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'center'
+				}}
 				onSubmit={handleSubmit}
 			>
 				<label>
 					Note:
 					<input type="text" ref={noteInput} defaultValue="" />
 				</label>
-				<input type="submit" value="Update Notes" />
+				<input
+					className="update-note-button"
+					type="submit"
+					value="Update Notes"
+				/>
 			</form>
 		</div>
 	);
