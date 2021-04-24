@@ -119,16 +119,31 @@ a {
 }
 #national-park-mirror {
   transform: scaleY(-1);
-  margin-top: -140px;
+  margin-top: -150px;
   color: white;
-  opacity: .6;
+  opacity: .4;
 }
+
+#favorites-link {
+  position: relative;
+  margin-bottom: -75px;
+}
+
+
+
+#button {
+  border-radius: 15px;
+}
+
+
 
 .parks-container {
   display: flex;
  justify-content: center;
  
 }
+
+
 
 .app-description {
   max-width: 750px;
