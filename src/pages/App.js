@@ -68,14 +68,15 @@ export default function App(props) {
 				<h3 style={{ textAlign: 'center' }}>Favorites</h3>
 			</Link>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="state"> State Abbreviation(CA, TX, UT)</label>
 				<input
+					style={{ borderRadius: '15px' }}
 					id="state"
 					type="text"
 					value={query.state}
 					onChange={handleChange}
+					placeholder="CA"
 				/>
-				<input type="submit" value="Find National Parks" />
+				<input id="button" type="submit" value="Find National Parks" />
 			</form>
 			{Object.keys(park).length ? <NationalPark data={park} /> : ''}
 		</div>
