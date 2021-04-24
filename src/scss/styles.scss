@@ -111,6 +111,19 @@ a {
   z-index: 1;
 }
 
+#national-park-title {
+  margin-top: -150px;
+  color: white;
+  padding-bottom: 75px;
+  opacity: .7;
+}
+#national-park-mirror {
+  transform: scaleY(-1);
+  margin-top: -140px;
+  color: white;
+  opacity: .6;
+}
+
 .parks-container {
   display: flex;
  justify-content: center;
